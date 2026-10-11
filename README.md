@@ -75,6 +75,8 @@ Cloudflare builds the site from GitHub and redeploys it automatically every time
    - The output folder, **`dist`**, is already set in `wrangler.jsonc` (`assets.directory`), along with the custom 404 page.
 6. Select **Save and Deploy**. When the build finishes, the site is live at an address like `insurefacts.<your-subdomain>.workers.dev`.
 
+**Already created a Worker named `insurefacts`** (for example from the “Hello World” starter)? Connect it to GitHub instead of creating a new one: open the Worker, go to **Settings → Builds → Connect**, choose the `insurefacts` repository and the `main` branch, and use the same build and deploy commands as above. Builds start when a commit is pushed to `main`; the “Hello world” response is replaced by the site after the first successful build.
+
 Cloudflare uses the Node.js version in [`.nvmrc`](.nvmrc) (22). If you ever need a different version, add a build variable `NODE_VERSION` (see step 5 for where build variables go).
 
 <details>
