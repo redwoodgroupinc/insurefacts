@@ -29,3 +29,6 @@ Thumbs.db
 
 # QA reports
 reports/
+
+# Netlify local state (created by `netlify link`)
+.netlify/

@@ -86,6 +86,18 @@ If you prefer Cloudflare Pages: in **Workers & Pages → Create application**, c
 
 </details>
 
+<details>
+<summary>Using Netlify instead</summary>
+
+The site also deploys on Netlify with no extra setup: [`netlify.toml`](netlify.toml) sets the build command (`npm run build`, which includes the search index) and the `dist` output folder, and Netlify reads `public/_headers` and serves `404.html` automatically.
+
+- **Production branch:** set it under **Project configuration → Build & deploy → Branches and deploy contexts**.
+- **Visitor access:** if new projects are private by default on your team, set team login (or password) to apply to non-production deploys only, so the live site stays public.
+- **AdSense variables:** add `PUBLIC_ADSENSE_CLIENT` and `PUBLIC_ADSENSE_SLOT` under **Project configuration → Environment variables**, then trigger a new deploy.
+- **Custom domain:** **Domain management → Add a domain** → `insurefacts.net`, then follow Netlify’s DNS instructions.
+
+</details>
+
 The headers in [`public/_headers`](public/_headers) add basic security headers, long-term caching for fingerprinted files, and a `noindex` header on the `*.workers.dev` address so only insurefacts.net appears in search engines.
 
 ## 4. Connect insurefacts.net
@@ -131,11 +143,11 @@ Email Routing only receives mail. To reply as `hello@insurefacts.net`, you need 
 
 Run `npm run build` and then `npm run verify` at any time to list the placeholders still on the site.
 
-| Placeholder             | Where                                                                                                                                         | Shown on                     |
-| ----------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------- |
-| `[YOUR NAME]`           | `ownerName` in [`src/data/site.ts`](src/data/site.ts)                                                                                           | About, Privacy Policy, Terms |
-| `[YOUR CITY, COUNTRY]`  | `ownerLocation` in [`src/data/site.ts`](src/data/site.ts)                                                                                       | About, Privacy Policy, Terms (including the governing-law clause) |
-| `[YOUR NAME]`           | `author` in each of the four draft articles in `src/content/articles/`                                                                        | Article bylines              |
+| Placeholder            | Where                                                                  | Shown on                                                          |
+| ---------------------- | ---------------------------------------------------------------------- | ----------------------------------------------------------------- |
+| `[YOUR NAME]`          | `ownerName` in [`src/data/site.ts`](src/data/site.ts)                  | About, Privacy Policy, Terms                                      |
+| `[YOUR CITY, COUNTRY]` | `ownerLocation` in [`src/data/site.ts`](src/data/site.ts)              | About, Privacy Policy, Terms (including the governing-law clause) |
+| `[YOUR NAME]`          | `author` in each of the four draft articles in `src/content/articles/` | Article bylines                                                   |
 
 Also review:
 
@@ -146,17 +158,17 @@ Also review:
 
 ## Commands
 
-| Command                                  | What it does                                                                                                         |
-| ---------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
-| `npm install`                            | Installs everything the project needs (run once, and after updates).                                                 |
-| `npm run dev`                            | Starts the local development site at http://localhost:4321, with drafts visible.                                    |
-| `npm run build`                          | Builds the production site into `dist/` and creates the search index. This is what Cloudflare runs.                 |
-| `npm run preview`                        | Serves the built `dist/` folder locally, with working search.                                                       |
-| `npm run verify`                         | After a build: checks no drafts leaked into pages, search or the sitemap, checks ad rules, lists placeholders, and checks all internal links. |
-| `npm run check:links`                    | After a build: checks every internal link, anchor and sitemap URL.                                                  |
-| `npm run check:links -- --external`      | Also checks links to official sources and other sites (needs internet; some government sites block automated checks, so open any flagged links in a browser). |
-| `npm run check`                          | Checks the code for TypeScript errors.                                                                              |
-| `npm run format`                         | Tidies the code formatting with Prettier.                                                                           |
+| Command                             | What it does                                                                                                                                                  |
+| ----------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `npm install`                       | Installs everything the project needs (run once, and after updates).                                                                                          |
+| `npm run dev`                       | Starts the local development site at http://localhost:4321, with drafts visible.                                                                              |
+| `npm run build`                     | Builds the production site into `dist/` and creates the search index. This is what Cloudflare runs.                                                           |
+| `npm run preview`                   | Serves the built `dist/` folder locally, with working search.                                                                                                 |
+| `npm run verify`                    | After a build: checks no drafts leaked into pages, search or the sitemap, checks ad rules, lists placeholders, and checks all internal links.                 |
+| `npm run check:links`               | After a build: checks every internal link, anchor and sitemap URL.                                                                                            |
+| `npm run check:links -- --external` | Also checks links to official sources and other sites (needs internet; some government sites block automated checks, so open any flagged links in a browser). |
+| `npm run check`                     | Checks the code for TypeScript errors.                                                                                                                        |
+| `npm run format`                    | Tidies the code formatting with Prettier.                                                                                                                     |
 
 ## Project structure
 

@@ -1,0 +1,5 @@
+# Netlify build settings. They override the settings in the Netlify dashboard.
+[build]
+  # Builds the site and then the Pagefind search index (plain `astro build` would skip search).
+  command = "npm run build"
+  publish = "dist"
