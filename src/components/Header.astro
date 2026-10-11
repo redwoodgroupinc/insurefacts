@@ -35,20 +35,18 @@ const iconButton =
 
     <nav aria-label="Countries" class="hidden md:block">
       <ul class="flex items-center gap-0.5">
-        {
-          countries.map((c) => (
-            <li>
-              <a
-                href={`/${c.code}/`}
-                aria-current={currentFor(c.code)}
-                class="flex min-h-11 items-center gap-2 rounded-md px-2.5 text-[0.9375rem] font-medium text-header-muted hover:bg-header-hover hover:text-header-fg [&[aria-current]]:bg-header-hover [&[aria-current]]:text-header-fg lg:px-3"
-              >
-                <Flag country={c} width={20} />
-                <span>{c.short}</span>
-              </a>
-            </li>
-          ))
-        }
+        {countries.map((c) => (
+          <li>
+            <a
+              href={`/${c.code}/`}
+              aria-current={currentFor(c.code)}
+              class="flex min-h-11 items-center gap-2 rounded-md px-2.5 text-[0.9375rem] font-medium text-header-muted hover:bg-header-hover hover:text-header-fg [&[aria-current]]:bg-header-hover [&[aria-current]]:text-header-fg lg:px-3"
+            >
+              <Flag country={c} width={20} />
+              <span>{c.short}</span>
+            </a>
+          </li>
+        ))}
       </ul>
     </nav>
 
@@ -82,35 +80,31 @@ const iconButton =
     <nav aria-label="Main menu" class="container-page py-3">
       <p class="eyebrow px-3 pt-1 pb-2 !text-header-muted">Choose a country</p>
       <ul class="grid gap-1">
-        {
-          countries.map((c) => (
-            <li>
-              <a
-                href={`/${c.code}/`}
-                aria-current={currentFor(c.code)}
-                class="flex min-h-12 items-center gap-3 rounded-md px-3 text-base font-medium text-header-fg hover:bg-header-hover [&[aria-current]]:bg-header-hover"
-              >
-                <Flag country={c} width={24} />
-                {c.name}
-              </a>
-            </li>
-          ))
-        }
+        {countries.map((c) => (
+          <li>
+            <a
+              href={`/${c.code}/`}
+              aria-current={currentFor(c.code)}
+              class="flex min-h-12 items-center gap-3 rounded-md px-3 text-base font-medium text-header-fg hover:bg-header-hover [&[aria-current]]:bg-header-hover"
+            >
+              <Flag country={c} width={24} />
+              {c.name}
+            </a>
+          </li>
+        ))}
       </ul>
       <ul class="mt-3 grid grid-cols-2 gap-1 border-t border-white/10 pt-3">
-        {
-          menuLinks.map((link) => (
-            <li>
-              <a
-                href={link.href}
-                aria-current={path === link.href ? 'page' : undefined}
-                class="flex min-h-11 items-center rounded-md px-3 text-[0.9375rem] text-header-muted hover:bg-header-hover hover:text-header-fg"
-              >
-                {link.label}
-              </a>
-            </li>
-          ))
-        }
+        {menuLinks.map((link) => (
+          <li>
+            <a
+              href={link.href}
+              aria-current={path === link.href ? 'page' : undefined}
+              class="flex min-h-11 items-center rounded-md px-3 text-[0.9375rem] text-header-muted hover:bg-header-hover hover:text-header-fg"
+            >
+              {link.label}
+            </a>
+          </li>
+        ))}
       </ul>
     </nav>
   </div>

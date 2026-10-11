@@ -10,12 +10,16 @@ import ContentPage from '../layouts/ContentPage.astro';
   ads={false}
 >
   <p class="!text-xl">
-    <a href={`mailto:${site.email}`} class="font-semibold">{site.email}</a>
+    <a href={`mailto:${site.email}`} class="font-semibold">
+      {site.email}
+    </a>
   </p>
 
   <h2>What you can contact us about</h2>
   <ul>
-    <li>Errors or out-of-date information (see our <a href="/corrections/">corrections page</a>)</li>
+    <li>
+      Errors or out-of-date information (see our <a href="/corrections/">corrections page</a>)
+    </li>
     <li>Feedback or suggestions for topics we should explain</li>
     <li>Questions about this website</li>
   </ul>

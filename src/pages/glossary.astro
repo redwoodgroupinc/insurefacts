@@ -6,7 +6,10 @@ import ContentPage from '../layouts/ContentPage.astro';
 const terms = [...glossary].sort((a, b) => a.term.localeCompare(b.term));
 const letters = [...new Set(terms.map((t) => t.term[0].toUpperCase()))];
 const firstIdForLetter = new Map(
-  letters.map((letter) => [letter, termId(terms.find((t) => t.term[0].toUpperCase() === letter)!.term)]),
+  letters.map((letter) => [
+    letter,
+    termId(terms.find((t) => t.term[0].toUpperCase() === letter)!.term),
+  ]),
 );
 
 const definedTermSet = {
@@ -32,28 +35,28 @@ const definedTermSet = {
 >
   <nav aria-label="Glossary letters" class="not-prose" data-pagefind-ignore>
     <ul class="flex flex-wrap gap-1">
-      {
-        letters.map((letter) => (
-          <li>
-            <a
-              href={`#${firstIdForLetter.get(letter)}`}
-              class="flex size-11 items-center justify-center rounded-md border border-border font-semibold text-accent no-underline hover:border-accent"
-            >
-              {letter}
-            </a>
-          </li>
-        ))
-      }
+      {letters.map((letter) => (
+        <li>
+          <a
+            href={`#${firstIdForLetter.get(letter)}`}
+            class="flex size-11 items-center justify-center rounded-md border border-border font-semibold text-accent no-underline hover:border-accent"
+          >
+            {letter}
+          </a>
+        </li>
+      ))}
     </ul>
   </nav>
 
   <h2 id="same-thing-different-words">Same thing, different words</h2>
   <p>
-    Insurance language differs between countries. The US and Canada mostly share one set of terms, and
-    the UK and Australia another.
+    Insurance language differs between countries. The US and Canada mostly share one set of terms,
+    and the UK and Australia another.
   </p>
   <table>
-    <caption class="visually-hidden">Insurance terms in the US and Canada compared with the UK and Australia</caption>
+    <caption class="visually-hidden">
+      Insurance terms in the US and Canada compared with the UK and Australia
+    </caption>
     <thead>
       <tr>
         <th scope="col">What it means</th>
@@ -62,43 +65,39 @@ const definedTermSet = {
       </tr>
     </thead>
     <tbody>
-      {
-        terminology.map((row) => (
-          <tr>
-            <th scope="row">{row.concept}</th>
-            <td>{row.usCa}</td>
-            <td>{row.ukAu}</td>
-          </tr>
-        ))
-      }
+      {terminology.map((row) => (
+        <tr>
+          <th scope="row">{row.concept}</th>
+          <td>{row.usCa}</td>
+          <td>{row.ukAu}</td>
+        </tr>
+      ))}
     </tbody>
   </table>
 
   <h2 id="terms">Terms A to Z</h2>
   <dl class="glossary">
-    {
-      terms.map((t) => (
-        <div id={termId(t.term)} class="scroll-mt-6 border-b border-border py-5">
-          <dt class="text-lg font-semibold text-heading">{t.term}</dt>
-          <dd class="mt-1">{t.definition}</dd>
-          {t.regions && (
-            <dd class="mt-2 text-[0.95em] text-fg-muted">
-              <span class="font-semibold">Where it’s used:</span> {t.regions}
-            </dd>
-          )}
-          {t.seeAlso && (
-            <dd class="mt-2 text-[0.95em] text-fg-muted">
-              <span class="font-semibold">See also:</span>{' '}
-              {t.seeAlso.map((other, i) => (
-                <>
-                  {i > 0 && ', '}
-                  <a href={`#${termId(other)}`}>{other}</a>
-                </>
-              ))}
-            </dd>
-          )}
-        </div>
-      ))
-    }
+    {terms.map((t) => (
+      <div id={termId(t.term)} class="scroll-mt-6 border-b border-border py-5">
+        <dt class="text-lg font-semibold text-heading">{t.term}</dt>
+        <dd class="mt-1">{t.definition}</dd>
+        {t.regions && (
+          <dd class="mt-2 text-[0.95em] text-fg-muted">
+            <span class="font-semibold">Where it’s used:</span> {t.regions}
+          </dd>
+        )}
+        {t.seeAlso && (
+          <dd class="mt-2 text-[0.95em] text-fg-muted">
+            <span class="font-semibold">See also:</span>{' '}
+            {t.seeAlso.map((other, i) => (
+              <>
+                {i > 0 && ', '}
+                <a href={`#${termId(other)}`}>{other}</a>
+              </>
+            ))}
+          </dd>
+        )}
+      </div>
+    ))}
   </dl>
 </ContentPage>

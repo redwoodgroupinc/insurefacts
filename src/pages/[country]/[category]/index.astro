@@ -5,7 +5,12 @@ import Breadcrumbs from '../../../components/Breadcrumbs.astro';
 import Icon from '../../../components/Icon.astro';
 import OfficialSources from '../../../components/OfficialSources.astro';
 import SectionHeading from '../../../components/SectionHeading.astro';
-import { categories, categoryUrl, getCategoriesForCountry, type Category } from '../../../data/categories';
+import {
+  categories,
+  categoryUrl,
+  getCategoriesForCountry,
+  type Category,
+} from '../../../data/categories';
 import { getCountry } from '../../../data/countries';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import { getArticles } from '../../../lib/articles';
@@ -52,15 +57,23 @@ const metaDescription = (() => {
   <div class="border-b border-border bg-bg-subtle">
     <div class="container-page pt-2 pb-10 sm:pb-12">
       <Breadcrumbs crumbs={crumbs} />
-      <div class="mt-4 max-w-3xl" data-pagefind-body data-pagefind-filter={`Country:${country.name}`}>
+      <div
+        class="mt-4 max-w-3xl"
+        data-pagefind-body
+        data-pagefind-filter={`Country:${country.name}`}
+      >
         <div class="flex items-start gap-4">
           <span class="mt-1 hidden size-12 shrink-0 items-center justify-center rounded-xl bg-accent-soft text-accent sm:flex">
             <Icon name={category.icon} size={26} />
           </span>
-          <h1 class="text-[2rem] leading-tight font-bold tracking-tight sm:text-[2.5rem]">{heading}</h1>
+          <h1 class="text-[2rem] leading-tight font-bold tracking-tight sm:text-[2.5rem]">
+            {heading}
+          </h1>
         </div>
         <div class="mt-5 space-y-3 text-lg text-fg">
-          {category.intro.map((p) => <p>{p}</p>)}
+          {category.intro.map((p) => (
+            <p>{p}</p>
+          ))}
         </div>
       </div>
     </div>
@@ -68,49 +81,47 @@ const metaDescription = (() => {
 
   <section aria-labelledby="articles-title" class="container-page pt-12">
     <SectionHeading id="articles-title" title="Articles" />
-    {
-      articles.length > 0 ? (
-        <ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {articles.map((article) => (
-            <li>
-              <ArticleCard article={article} />
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p class="card p-6 text-fg-muted">
-          Articles on {category.name.toLowerCase()} in {countryName(country)} are being researched and
-          checked against official sources, and will appear here once published.
-          {category.links?.length ? ' The official sources below explain the rules in the meantime.' : ''}
-        </p>
-      )
-    }
+    {articles.length > 0 ? (
+      <ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {articles.map((article) => (
+          <li>
+            <ArticleCard article={article} />
+          </li>
+        ))}
+      </ul>
+    ) : (
+      <p class="card p-6 text-fg-muted">
+        Articles on {category.name.toLowerCase()} in {countryName(country)} are being researched and
+        checked against official sources, and will appear here once published.
+        {category.links?.length
+          ? ' The official sources below explain the rules in the meantime.'
+          : ''}
+      </p>
+    )}
   </section>
 
-  {
-    category.links && category.links.length > 0 && (
-      <div class="container-page pt-12">
-        <OfficialSources title="Official sources on this topic" links={category.links} />
-      </div>
-    )
-  }
+  {category.links && category.links.length > 0 && (
+    <div class="container-page pt-12">
+      <OfficialSources title="Official sources on this topic" links={category.links} />
+    </div>
+  )}
 
   <nav aria-labelledby="more-title" class="container-page pt-12">
-    <h2 id="more-title" class="text-xl font-bold">More insurance types in {countryName(country)}</h2>
+    <h2 id="more-title" class="text-xl font-bold">
+      More insurance types in {countryName(country)}
+    </h2>
     <ul class="mt-4 flex flex-wrap gap-2">
-      {
-        siblings.map((c) => (
-          <li>
-            <a
-              href={categoryUrl(c)}
-              class="inline-flex min-h-11 items-center gap-2 rounded-lg border border-border bg-surface px-3.5 text-[0.9375rem] font-medium hover:border-accent hover:text-accent"
-            >
-              <Icon name={c.icon} size={18} class="text-accent" />
-              {c.name}
-            </a>
-          </li>
-        ))
-      }
+      {siblings.map((c) => (
+        <li>
+          <a
+            href={categoryUrl(c)}
+            class="inline-flex min-h-11 items-center gap-2 rounded-lg border border-border bg-surface px-3.5 text-[0.9375rem] font-medium hover:border-accent hover:text-accent"
+          >
+            <Icon name={c.icon} size={18} class="text-accent" />
+            {c.name}
+          </a>
+        </li>
+      ))}
     </ul>
   </nav>
 </BaseLayout>

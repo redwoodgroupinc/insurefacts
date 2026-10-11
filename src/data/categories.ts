@@ -86,7 +86,8 @@ export const categories: Category[] = [
     name: 'Homeowners insurance',
     topic: 'home',
     icon: 'home',
-    description: 'Dwelling, personal property and liability coverage, and what is usually excluded.',
+    description:
+      'Dwelling, personal property and liability coverage, and what is usually excluded.',
     intro: [
       'Homeowners insurance typically covers the structure of a home, personal belongings and personal liability, subject to the policy’s limits and exclusions. It isn’t required by law, but mortgage lenders usually require it as a condition of the loan.',
       'Standard homeowners policies generally don’t cover flood damage. Flood insurance is sold separately.',

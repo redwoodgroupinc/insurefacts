@@ -1,0 +1,14 @@
+// Cloudflare Workers configuration for the static site.
+// The "name" must match the Worker name in the Cloudflare dashboard.
+{
+  "$schema": "https://unpkg.com/wrangler/config-schema.json",
+  "name": "insurefacts",
+  "compatibility_date": "2026-10-11",
+  "assets": {
+    "directory": "./dist",
+    // Unknown URLs get the custom 404 page with a real 404 status.
+    "not_found_handling": "404-page",
+    // Folder pages are served with a trailing slash, matching the site's URLs.
+    "html_handling": "auto-trailing-slash",
+  },
+}

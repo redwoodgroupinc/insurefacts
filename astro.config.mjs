@@ -6,6 +6,7 @@ import tailwindcss from '@tailwindcss/vite';
 import { loadEnv } from 'vite';
 import { readArticleIndex } from './scripts/lib/article-index.mjs';
 import adsTxt from './src/integrations/ads-txt.mjs';
+import sitemapAlias from './src/integrations/sitemap-alias.mjs';
 
 const SITE = 'https://insurefacts.net';
 
@@ -46,6 +47,7 @@ export default defineConfig({
         return lastmod ? { ...item, lastmod } : item;
       },
     }),
+    sitemapAlias(),
     adsTxt({ client: adsenseClient }),
   ],
   vite: {

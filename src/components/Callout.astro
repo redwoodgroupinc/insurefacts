@@ -26,20 +26,18 @@ const titleId = id ? `${id}-title` : undefined;
   aria-labelledby={title ? titleId : undefined}
   class:list={['rounded-xl border-l-4 border px-5 py-4 sm:px-6', styles, className]}
 >
-  {
-    title && (
-      <Heading
-        id={titleId}
-        class:list={[
-          'mb-2 flex items-center gap-2 text-base font-semibold sm:text-lg',
-          variant === 'important' && '!text-important-fg',
-        ]}
-      >
-        <Icon name={icon} size={20} class="shrink-0" />
-        {title}
-      </Heading>
-    )
-  }
+  {title && (
+    <Heading
+      id={titleId}
+      class:list={[
+        'mb-2 flex items-center gap-2 text-base font-semibold sm:text-lg',
+        variant === 'important' && '!text-important-fg',
+      ]}
+    >
+      <Icon name={icon} size={20} class="shrink-0" />
+      {title}
+    </Heading>
+  )}
   <div class="text-[0.97em] leading-relaxed [&_a]:underline [&_a]:underline-offset-2 [&_p+p]:mt-2">
     <slot />
   </div>

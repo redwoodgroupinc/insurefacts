@@ -40,7 +40,7 @@ const serialize = (data: JsonLd) => JSON.stringify(data).replace(/</g, '\\u003c'
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>{fullTitle}</title>
 <meta name="description" content={description} />
-<link rel="canonical" href={canonical} />
+{!noindex && <link rel="canonical" href={canonical} />}
 <meta name="robots" content={robots} />
 <meta name="color-scheme" content="light dark" />
 <meta name="theme-color" content="#0b1f44" media="(prefers-color-scheme: light)" />
@@ -50,7 +50,7 @@ const serialize = (data: JsonLd) => JSON.stringify(data).replace(/</g, '\\u003c'
 <link rel="icon" href="/favicon.ico" sizes="32x32" />
 <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
 <link rel="manifest" href="/site.webmanifest" />
-<link rel="sitemap" type="application/xml" href="/sitemap-index.xml" />
+<link rel="sitemap" type="application/xml" href="/sitemap.xml" />
 
 <meta property="og:type" content={ogType} />
 <meta property="og:site_name" content={site.name} />
@@ -70,4 +70,6 @@ const serialize = (data: JsonLd) => JSON.stringify(data).replace(/</g, '\\u003c'
 <meta name="twitter:description" content={description} />
 <meta name="twitter:image" content={ogImage} />
 
-{jsonLd.map((data) => <script type="application/ld+json" set:html={serialize(data)} />)}
+{jsonLd.map((data) => (
+  <script type="application/ld+json" set:html={serialize(data)} />
+))}

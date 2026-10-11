@@ -18,7 +18,15 @@ interface Props {
   jsonLd?: JsonLd[];
 }
 
-const { title, description, lead, updated, ads = true, searchable = false, jsonLd = [] } = Astro.props;
+const {
+  title,
+  description,
+  lead,
+  updated,
+  ads = true,
+  searchable = false,
+  jsonLd = [],
+} = Astro.props;
 const crumbs = [{ name: 'Home', href: '/' }, { name: title }];
 ---
 
@@ -31,15 +39,15 @@ const crumbs = [{ name: 'Home', href: '/' }, { name: title }];
   <div class="border-b border-border bg-bg-subtle">
     <div class="container-page pt-2 pb-10">
       <Breadcrumbs crumbs={crumbs} />
-      <h1 class="mt-4 text-[2rem] leading-tight font-bold tracking-tight sm:text-[2.5rem]">{title}</h1>
+      <h1 class="mt-4 text-[2rem] leading-tight font-bold tracking-tight sm:text-[2.5rem]">
+        {title}
+      </h1>
       {lead && <p class="measure mt-4 text-lg text-fg-muted">{lead}</p>}
-      {
-        updated && (
-          <p class="mt-4 text-[0.9375rem] text-fg-muted">
-            Last updated <time datetime={isoDate(updated)}>{formatDate(updated, 'en-GB')}</time>
-          </p>
-        )
-      }
+      {updated && (
+        <p class="mt-4 text-[0.9375rem] text-fg-muted">
+          Last updated <time datetime={isoDate(updated)}>{formatDate(updated, 'en-GB')}</time>
+        </p>
+      )}
     </div>
   </div>
   <div class="container-page pt-10">

@@ -34,7 +34,10 @@ export function readArticleIndex() {
   return walk(ARTICLES_DIR).map((file) => {
     const source = readFileSync(file, 'utf8');
     const frontmatter = source.match(/^---\r?\n([\s\S]*?)\r?\n---/)?.[1] ?? '';
-    const id = relative(ARTICLES_DIR, file).split(sep).join('/').replace(/\.mdx?$/, '');
+    const id = relative(ARTICLES_DIR, file)
+      .split(sep)
+      .join('/')
+      .replace(/\.mdx?$/, '');
     const updated = frontmatterValue(frontmatter, 'updatedDate');
     return {
       file,

@@ -15,8 +15,8 @@ import { formatDate, isoDate } from '../lib/format';
 >
   <h2>How to report an error</h2>
   <p>
-    Email us at <a href={`mailto:${site.email}?subject=Correction`}>{site.email}</a> with “Correction”
-    in the subject line. To help us check it quickly, please include:
+    Email us at <a href={`mailto:${site.email}?subject=Correction`}>{site.email}</a> with
+    “Correction” in the subject line. To help us check it quickly, please include:
   </p>
   <ul>
     <li>the address (URL) of the page;</li>
@@ -31,37 +31,40 @@ import { formatDate, isoDate } from '../lib/format';
   <h2>What happens next</h2>
   <ul>
     <li>We check the report against official sources.</li>
-    <li>If the article is wrong, we correct it as soon as we can and update its “Last updated” date.</li>
-    <li>Significant corrections, meaning changes to a fact rather than to spelling or wording, are listed in the log below.</li>
+    <li>
+      If the article is wrong, we correct it as soon as we can and update its “Last updated” date.
+    </li>
+    <li>
+      Significant corrections, meaning changes to a fact rather than to spelling or wording, are
+      listed in the log below.
+    </li>
   </ul>
 
   <h2>Corrections log</h2>
-  {
-    corrections.length === 0 ? (
-      <p>No corrections have been published yet.</p>
-    ) : (
-      <table>
-        <thead>
+  {corrections.length === 0 ? (
+    <p>No corrections have been published yet.</p>
+  ) : (
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">Date</th>
+          <th scope="col">Article</th>
+          <th scope="col">What changed</th>
+        </tr>
+      </thead>
+      <tbody>
+        {corrections.map((c) => (
           <tr>
-            <th scope="col">Date</th>
-            <th scope="col">Article</th>
-            <th scope="col">What changed</th>
+            <td>
+              <time datetime={isoDate(c.date)}>{formatDate(c.date, 'en-GB')}</time>
+            </td>
+            <td>
+              <a href={c.articleUrl}>{c.articleTitle}</a>
+            </td>
+            <td>{c.summary}</td>
           </tr>
-        </thead>
-        <tbody>
-          {corrections.map((c) => (
-            <tr>
-              <td>
-                <time datetime={isoDate(c.date)}>{formatDate(c.date, 'en-GB')}</time>
-              </td>
-              <td>
-                <a href={c.articleUrl}>{c.articleTitle}</a>
-              </td>
-              <td>{c.summary}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    )
-  }
+        ))}
+      </tbody>
+    </table>
+  )}
 </ContentPage>

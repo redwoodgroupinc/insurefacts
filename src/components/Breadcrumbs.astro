@@ -11,21 +11,22 @@ const { crumbs } = Astro.props;
 
 <nav aria-label="Breadcrumb" class="text-sm text-fg-muted" data-pagefind-ignore>
   <ol class="flex flex-wrap items-center gap-x-1 gap-y-0">
-    {
-      crumbs.map((crumb, index) => (
-        <li class="flex items-center gap-1">
-          {index > 0 && <Icon name="chevronRight" size={14} class="shrink-0 opacity-70" />}
-          {crumb.href ? (
-            <a href={crumb.href} class="inline-flex min-h-11 items-center underline-offset-4 hover:text-accent hover:underline">
-              {crumb.name}
-            </a>
-          ) : (
-            <span aria-current="page" class="inline-flex min-h-11 items-center font-medium text-fg">
-              {crumb.name}
-            </span>
-          )}
-        </li>
-      ))
-    }
+    {crumbs.map((crumb, index) => (
+      <li class="flex items-center gap-1">
+        {index > 0 && <Icon name="chevronRight" size={14} class="shrink-0 opacity-70" />}
+        {crumb.href ? (
+          <a
+            href={crumb.href}
+            class="inline-flex min-h-11 items-center underline-offset-4 hover:text-accent hover:underline"
+          >
+            {crumb.name}
+          </a>
+        ) : (
+          <span aria-current="page" class="inline-flex min-h-11 items-center font-medium text-fg">
+            {crumb.name}
+          </span>
+        )}
+      </li>
+    ))}
   </ol>
 </nav>

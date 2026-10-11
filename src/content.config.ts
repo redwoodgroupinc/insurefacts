@@ -50,7 +50,10 @@ const articles = defineCollection({
       description: z
         .string()
         .min(140, 'description must be 140–160 characters (it is used as the SEO meta description)')
-        .max(160, 'description must be 140–160 characters (it is used as the SEO meta description)'),
+        .max(
+          160,
+          'description must be 140–160 characters (it is used as the SEO meta description)',
+        ),
       country: z.enum(COUNTRY_CODES),
       category: z.string(),
       quickAnswer: z.string().min(40),

@@ -4,7 +4,11 @@ const processEnv: Record<string, string | undefined> =
   typeof process !== 'undefined' ? process.env : {};
 
 function isTrue(value: unknown): boolean {
-  return ['1', 'true', 'yes'].includes(String(value ?? '').trim().toLowerCase());
+  return ['1', 'true', 'yes'].includes(
+    String(value ?? '')
+      .trim()
+      .toLowerCase(),
+  );
 }
 
 /** AdSense publisher ID ("ca-pub-…"). Empty means ads are completely off. */

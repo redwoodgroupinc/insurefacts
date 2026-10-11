@@ -16,17 +16,18 @@ const { category, articleCount = 0 } = Astro.props;
   </span>
   <div class="min-w-0">
     <h3 class="text-lg font-semibold leading-snug">
-      <a href={categoryUrl(category)} class="stretched-link hover:text-accent hover:underline underline-offset-4">
+      <a
+        href={categoryUrl(category)}
+        class="stretched-link hover:text-accent hover:underline underline-offset-4"
+      >
         {category.name}
       </a>
     </h3>
     <p class="mt-1 text-[0.9375rem] leading-relaxed text-fg-muted">{category.description}</p>
-    {
-      articleCount > 0 && (
-        <p class="mt-2 text-sm font-medium text-fg">
-          {articleCount} {articleCount === 1 ? 'article' : 'articles'}
-        </p>
-      )
-    }
+    {articleCount > 0 && (
+      <p class="mt-2 text-sm font-medium text-fg">
+        {articleCount} {articleCount === 1 ? 'article' : 'articles'}
+      </p>
+    )}
   </div>
 </article>

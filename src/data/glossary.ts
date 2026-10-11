@@ -21,7 +21,8 @@ export const glossary: GlossaryTerm[] = [
     term: 'Add-on',
     definition:
       'Optional extra cover that can be added to a policy for an additional cost, such as breakdown cover on a car insurance policy.',
-    regions: 'Common in the UK and Australia (also called an optional extra). In the US and Canada, a similar addition is often called a rider or endorsement.',
+    regions:
+      'Common in the UK and Australia (also called an optional extra). In the US and Canada, a similar addition is often called a rider or endorsement.',
     seeAlso: ['Rider'],
   },
   {
@@ -36,8 +37,7 @@ export const glossary: GlossaryTerm[] = [
   },
   {
     term: 'Claim',
-    definition:
-      'A formal request to an insurer to pay for a loss or event covered by the policy.',
+    definition: 'A formal request to an insurer to pay for a loss or event covered by the policy.',
   },
   {
     term: 'Coinsurance',
@@ -56,7 +56,8 @@ export const glossary: GlossaryTerm[] = [
     term: 'Cooling-off period',
     definition:
       'A period after buying a policy during which you can cancel it, usually with a refund of the premium. The length depends on the type of insurance and the rules where you live.',
-    regions: 'The term used in the UK and Australia. In the US, a similar period for life insurance is called a free look period.',
+    regions:
+      'The term used in the UK and Australia. In the US, a similar period for life insurance is called a free look period.',
     seeAlso: ['Free look period'],
   },
   {
@@ -75,8 +76,7 @@ export const glossary: GlossaryTerm[] = [
   },
   {
     term: 'Endorsement',
-    definition:
-      'A written change to an insurance policy that adds, removes or changes cover.',
+    definition: 'A written change to an insurance policy that adds, removes or changes cover.',
     regions: 'Common in the US and Canada.',
     seeAlso: ['Rider'],
   },
@@ -115,7 +115,8 @@ export const glossary: GlossaryTerm[] = [
     term: 'Liability',
     definition:
       'Legal responsibility for injury to other people or damage to their property. Liability insurance pays claims made against you, up to the policy limit.',
-    regions: 'In the UK and Australia, cover for liability to others is often called third party cover.',
+    regions:
+      'In the UK and Australia, cover for liability to others is often called third party cover.',
     seeAlso: ['Third party'],
   },
   {
@@ -128,7 +129,8 @@ export const glossary: GlossaryTerm[] = [
     term: 'No-claims bonus',
     definition:
       'A discount on your premium for each year you hold a policy without making a claim. Also called a no-claims discount.',
-    regions: 'Used in the UK (no-claims bonus or discount) and Australia (no claim bonus). In the US and Canada, insurers may offer a claims-free discount.',
+    regions:
+      'Used in the UK (no-claims bonus or discount) and Australia (no claim bonus). In the US and Canada, insurers may offer a claims-free discount.',
   },
   {
     term: 'Out-of-pocket maximum',
@@ -152,8 +154,7 @@ export const glossary: GlossaryTerm[] = [
   },
   {
     term: 'Premium',
-    definition:
-      'The amount you pay for an insurance policy, usually monthly or yearly.',
+    definition: 'The amount you pay for an insurance policy, usually monthly or yearly.',
   },
   {
     term: 'Product Disclosure Statement (PDS)',
@@ -179,7 +180,8 @@ export const glossary: GlossaryTerm[] = [
     term: 'Sum insured',
     definition:
       'The maximum amount an insurer will pay under a policy, or for a particular item or type of loss.',
-    regions: 'Used in the UK and Australia. In the US and Canada, the usual terms are coverage limit or policy limit.',
+    regions:
+      'Used in the UK and Australia. In the US and Canada, the usual terms are coverage limit or policy limit.',
     seeAlso: ['Underinsurance'],
   },
   {
@@ -222,12 +224,36 @@ export const glossary: GlossaryTerm[] = [
 export const terminology: { concept: string; usCa: string; ukAu: string }[] = [
   { concept: 'What you pay towards a claim', usCa: 'Deductible', ukAu: 'Excess' },
   { concept: 'Cover for a vehicle', usCa: 'Auto or car insurance', ukAu: 'Motor or car insurance' },
-  { concept: 'Cover for liability to others', usCa: 'Liability coverage', ukAu: 'Third party cover' },
-  { concept: 'Maximum the insurer pays', usCa: 'Coverage limit or policy limit', ukAu: 'Sum insured' },
-  { concept: 'Discount for not claiming', usCa: 'Claims-free discount', ukAu: 'No-claims bonus or discount' },
-  { concept: 'Extra cover added to a policy', usCa: 'Rider or endorsement', ukAu: 'Add-on or optional extra' },
-  { concept: 'Time to cancel a new policy', usCa: 'Free look period (US)', ukAu: 'Cooling-off period' },
-  { concept: 'Insurance for a renter’s belongings', usCa: 'Renters insurance (US), tenant insurance (Canada)', ukAu: 'Contents insurance' },
+  {
+    concept: 'Cover for liability to others',
+    usCa: 'Liability coverage',
+    ukAu: 'Third party cover',
+  },
+  {
+    concept: 'Maximum the insurer pays',
+    usCa: 'Coverage limit or policy limit',
+    ukAu: 'Sum insured',
+  },
+  {
+    concept: 'Discount for not claiming',
+    usCa: 'Claims-free discount',
+    ukAu: 'No-claims bonus or discount',
+  },
+  {
+    concept: 'Extra cover added to a policy',
+    usCa: 'Rider or endorsement',
+    ukAu: 'Add-on or optional extra',
+  },
+  {
+    concept: 'Time to cancel a new policy',
+    usCa: 'Free look period (US)',
+    ukAu: 'Cooling-off period',
+  },
+  {
+    concept: 'Insurance for a renter’s belongings',
+    usCa: 'Renters insurance (US), tenant insurance (Canada)',
+    ukAu: 'Contents insurance',
+  },
   { concept: 'Spelling', usCa: 'Tire', ukAu: 'Tyre' },
 ];
 

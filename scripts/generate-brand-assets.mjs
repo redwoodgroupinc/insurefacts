@@ -97,6 +97,8 @@ await page.setContent(html, { waitUntil: 'load' });
 await page.evaluate(() => document.fonts.ready);
 const shot = await page.screenshot({ type: 'png' });
 await browser.close();
-await sharp(shot).png({ compressionLevel: 9, palette: true, quality: 90 }).toFile(pub('og-default.png'));
+await sharp(shot)
+  .png({ compressionLevel: 9, palette: true, quality: 90 })
+  .toFile(pub('og-default.png'));
 
 console.log('Brand assets written to public/.');
