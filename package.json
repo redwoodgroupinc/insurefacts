@@ -6,7 +6,7 @@
   "description": "InsureFacts: free, factual insurance information for the US, UK, Canada and Australia.",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build && pagefind --site dist",
+    "build": "astro build && pagefind",
     "preview": "astro preview",
     "check": "astro check",
     "astro": "astro"
@@ -24,5 +24,8 @@
     "@astrojs/check": "^0.9.10",
     "pagefind": "^1.5.2",
     "typescript": "^6.0.3"
+  },
+  "engines": {
+    "node": ">=22.12.0"
   }
 }

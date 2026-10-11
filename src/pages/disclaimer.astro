@@ -1,0 +1,73 @@
+---
+import { policyDates } from '../data/legal';
+import { site } from '../data/site';
+import ContentPage from '../layouts/ContentPage.astro';
+---
+
+<ContentPage
+  title="Disclaimer"
+  description="InsureFacts provides general factual information only. It is not financial advice, and we are not an insurer, agent or broker. Read the full disclaimer."
+  lead={site.disclaimerShort}
+  updated={policyDates.disclaimer}
+  ads={false}
+>
+  <h2>Information only</h2>
+  <p>
+    The content on InsureFacts ({site.domain}) is general, factual information about how insurance
+    works in the United States, the United Kingdom, Canada and Australia. It is provided for
+    educational purposes only.
+  </p>
+
+  <h2>Not financial advice</h2>
+  <p>
+    Nothing on this website is financial advice or a financial product recommendation, whether
+    personal or general. The information does not take into account anyone’s objectives, financial
+    situation or needs, and it should not be relied on as the only basis for any decision. We never
+    recommend a particular insurer, policy or product.
+  </p>
+
+  <h2>We are not an insurer, agent or broker</h2>
+  <p>
+    InsureFacts does not sell, arrange or deal in insurance and is not an insurance company, agent or
+    broker. We are not authorised by the Financial Conduct Authority (FCA) in the UK, and we do not
+    hold an Australian Financial Services Licence from the Australian Securities and Investments
+    Commission (ASIC). We are not licensed to give advice by any US state or Canadian provincial or
+    territorial regulator.
+  </p>
+
+  <h2>Check before you decide</h2>
+  <p>
+    Insurance rules, prices and products change, and they can differ by state, province or territory.
+    Although we base our articles on official sources and try to keep them accurate and up to date, we
+    can’t guarantee that every page is complete, accurate or current. The terms of an actual policy are
+    set by the insurer’s policy documents, not by this website.
+  </p>
+  <p>
+    Before making any decision, check the details with the insurer or the relevant official source.
+    You may also wish to speak to a licensed professional.
+  </p>
+
+  <h2>Links to other websites</h2>
+  <p>
+    We link to official sources and other websites for reference. We aren’t responsible for their
+    content, which may change after we link to it.
+  </p>
+
+  <h2>Advertising</h2>
+  <p>
+    Ads on this website are served by Google AdSense and are labelled “Advertisement”. An ad appearing
+    on InsureFacts is not an endorsement or recommendation of the advertiser or its products.
+  </p>
+
+  <h2>Limitation of liability</h2>
+  <p>
+    To the extent permitted by law, {site.name} and its operator are not liable for any loss or damage
+    arising from the use of, or reliance on, information on this website. Nothing in this disclaimer
+    limits any rights you have that cannot be excluded or limited under the law that applies to you.
+  </p>
+
+  <p>
+    Questions about this disclaimer can be sent to <a href={`mailto:${site.email}`}>{site.email}</a>.
+    See also our <a href="/terms/">Terms of Use</a>.
+  </p>
+</ContentPage>

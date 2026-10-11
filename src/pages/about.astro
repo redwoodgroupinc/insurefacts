@@ -1,0 +1,64 @@
+---
+import { policyDates } from '../data/legal';
+import { site } from '../data/site';
+import ContentPage from '../layouts/ContentPage.astro';
+---
+
+<ContentPage
+  title="About InsureFacts"
+  description="InsureFacts is an independent website that explains how insurance works in the US, UK, Canada and Australia, using official sources. We don't sell insurance."
+  lead="An independent, free guide to how insurance works in four countries, built on official sources."
+  updated={policyDates.about}
+  searchable
+>
+  <h2>Who runs InsureFacts</h2>
+  <p>
+    InsureFacts is an independent website run by {site.ownerName}, based in {site.ownerLocation}.
+    You can contact us at <a href={`mailto:${site.email}`}>{site.email}</a>.
+  </p>
+
+  <h2>Our mission</h2>
+  <p>
+    Insurance is full of unfamiliar terms, and the rules differ from one country to the next. Our
+    mission is to explain, in plain English, how insurance actually works in the United States, the
+    United Kingdom, Canada and Australia, so that readers can understand their options and know where
+    to find the official rules.
+  </p>
+
+  <h2>What we do, and what we don’t</h2>
+  <ul>
+    <li>We explain facts, rules and how things work, using official government and regulator sources.</li>
+    <li>We link to every source we use, so you can check it yourself.</li>
+    <li>We use each country’s own terms and spelling.</li>
+    <li>
+      We <strong>don’t</strong> sell insurance, compare prices, or recommend any insurer, policy or
+      product.
+    </li>
+    <li>
+      We <strong>don’t</strong> give financial advice, personal or general. Nothing on this site takes
+      your circumstances into account.
+    </li>
+    <li>
+      We are <strong>not</strong> an insurance company, agent or broker, and we don’t collect personal
+      details: there are no accounts, sign-ups or forms.
+    </li>
+  </ul>
+
+  <h2>Our independence</h2>
+  <p>
+    InsureFacts is not owned by, paid by or affiliated with any insurer, broker, agent or comparison
+    website. We don’t earn commission, and we don’t accept payment to mention or link to any company.
+  </p>
+  <p>
+    The site is free to read and is funded by advertising served by Google AdSense. Advertisers have
+    no say in what we write, ads are always labelled “Advertisement”, and an ad appearing on the site
+    is not an endorsement.
+  </p>
+
+  <h2>How we research and update articles</h2>
+  <p>
+    Our <a href="/editorial-policy/">editorial policy</a> explains how we choose sources, check facts
+    and keep articles up to date. If you spot something that’s wrong or out of date, please tell us:
+    our <a href="/corrections/">corrections page</a> explains how.
+  </p>
+</ContentPage>

@@ -1,0 +1,76 @@
+---
+import { policyDates } from '../data/legal';
+import { site } from '../data/site';
+import ContentPage from '../layouts/ContentPage.astro';
+---
+
+<ContentPage
+  title="Terms of Use"
+  description="The terms that apply when you use InsureFacts, including that the content is general information only, how you may share it, and our limits of liability."
+  lead="By using this website you agree to these terms. Please read them alongside our disclaimer."
+  updated={policyDates.terms}
+  ads={false}
+>
+  <h2>About these terms</h2>
+  <p>
+    These terms apply to your use of InsureFacts ({site.domain}), which is operated by {site.ownerName},
+    based in {site.ownerLocation} (“we”, “us”). If you don’t agree with them, please don’t use the site.
+  </p>
+
+  <h2>Information only</h2>
+  <p>
+    The website provides general factual information about insurance. It is not financial, legal or
+    insurance advice, and we don’t sell or arrange insurance. Our <a href="/disclaimer/">disclaimer</a>{' '}
+    forms part of these terms.
+  </p>
+
+  <h2>Using our content</h2>
+  <p>
+    The text, design and logo on this website belong to {site.name} unless stated otherwise. You’re
+    welcome to link to any page and to quote short extracts with a link back to the original page. You
+    may not copy or republish whole articles, or present our content as your own, without our written
+    permission. Content from official sources that we link to belongs to its owners.
+  </p>
+
+  <h2>Acceptable use</h2>
+  <p>You agree not to:</p>
+  <ul>
+    <li>use the website in a way that breaks any law;</li>
+    <li>try to disrupt, overload or gain unauthorised access to the website or its hosting;</li>
+    <li>copy the website in bulk using automated tools in a way that harms its performance.</li>
+  </ul>
+
+  <h2>Links and advertising</h2>
+  <p>
+    We link to other websites for reference and show ads served by Google AdSense. We aren’t
+    responsible for the content of other websites or for advertisers’ products or services.
+  </p>
+
+  <h2>No guarantees</h2>
+  <p>
+    We work to keep the website accurate and available, but it is provided “as is”. We don’t guarantee
+    that it will always be available, error-free or up to date.
+  </p>
+
+  <h2>Limitation of liability</h2>
+  <p>
+    To the extent permitted by law, we are not liable for any loss or damage arising from your use of,
+    or reliance on, this website. Nothing in these terms excludes or limits any liability, or any of
+    your rights, that cannot be excluded or limited under the law that applies to you.
+  </p>
+
+  <h2>Changes</h2>
+  <p>
+    We may update these terms from time to time. The “Last updated” date shows when they last changed.
+  </p>
+
+  <h2>Governing law</h2>
+  <p>
+    These terms are governed by the law of the place where InsureFacts is operated
+    ({site.ownerLocation}), without affecting any rights you have under the consumer protection laws of
+    the country where you live.
+  </p>
+
+  <h2>Contact</h2>
+  <p>Questions about these terms can be sent to <a href={`mailto:${site.email}`}>{site.email}</a>.</p>
+</ContentPage>

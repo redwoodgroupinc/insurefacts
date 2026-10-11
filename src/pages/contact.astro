@@ -1,0 +1,35 @@
+---
+import { site } from '../data/site';
+import ContentPage from '../layouts/ContentPage.astro';
+---
+
+<ContentPage
+  title="Contact"
+  description="How to contact InsureFacts by email about corrections, feedback or other questions. We can't give personal advice or help with insurance claims."
+  lead="The best way to reach us is by email."
+  ads={false}
+>
+  <p class="!text-xl">
+    <a href={`mailto:${site.email}`} class="font-semibold">{site.email}</a>
+  </p>
+
+  <h2>What you can contact us about</h2>
+  <ul>
+    <li>Errors or out-of-date information (see our <a href="/corrections/">corrections page</a>)</li>
+    <li>Feedback or suggestions for topics we should explain</li>
+    <li>Questions about this website</li>
+  </ul>
+
+  <h2>What we can’t help with</h2>
+  <p>
+    InsureFacts is not an insurance company, agent or broker. We can’t give personal advice, provide
+    quotes, or help with a policy or claim. Please don’t send personal details, policy numbers or
+    claim information by email.
+  </p>
+  <p>
+    If you have a problem with an insurer, contact the insurer first. If it isn’t resolved, each
+    country has official complaint and help services, which are listed in the “Official sources” box
+    on each country page: <a href="/us/">United States</a>, <a href="/uk/">United Kingdom</a>,{' '}
+    <a href="/ca/">Canada</a> and <a href="/au/">Australia</a>.
+  </p>
+</ContentPage>

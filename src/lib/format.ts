@@ -7,3 +7,8 @@ export function formatDate(date: Date, lang = 'en-US'): string {
 export function isoDate(date: Date): string {
   return date.toISOString().slice(0, 10);
 }
+
+/** Country name as used mid-sentence: "the United States", "the United Kingdom", "Canada", "Australia". */
+export function countryName(country: { code: string; name: string }): string {
+  return country.code === 'us' || country.code === 'uk' ? `the ${country.name}` : country.name;
+}

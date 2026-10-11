@@ -1,0 +1,46 @@
+---
+import Icon from './Icon.astro';
+
+interface Props {
+  variant?: 'info' | 'important' | 'note';
+  title?: string;
+  /** Heading level for the title (default h2). */
+  level?: 2 | 3;
+  class?: string;
+  id?: string;
+}
+
+const { variant = 'info', title, level = 2, class: className = '', id } = Astro.props;
+const Heading = `h${level}` as 'h2' | 'h3';
+const styles = {
+  info: 'border-accent/40 bg-accent-soft',
+  important: 'border-important-border bg-important-bg text-important-fg',
+  note: 'border-border bg-bg-subtle',
+}[variant];
+const icon = variant === 'important' ? 'warning' : 'info';
+const titleId = id ? `${id}-title` : undefined;
+---
+
+<section
+  id={id}
+  aria-labelledby={title ? titleId : undefined}
+  class:list={['rounded-xl border-l-4 border px-5 py-4 sm:px-6', styles, className]}
+>
+  {
+    title && (
+      <Heading
+        id={titleId}
+        class:list={[
+          'mb-2 flex items-center gap-2 text-base font-semibold sm:text-lg',
+          variant === 'important' && '!text-important-fg',
+        ]}
+      >
+        <Icon name={icon} size={20} class="shrink-0" />
+        {title}
+      </Heading>
+    )
+  }
+  <div class="text-[0.97em] leading-relaxed [&_a]:underline [&_a]:underline-offset-2 [&_p+p]:mt-2">
+    <slot />
+  </div>
+</section>

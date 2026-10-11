@@ -1,0 +1,93 @@
+---
+import type { GetStaticPaths } from 'astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import CategoryCard from '../../components/CategoryCard.astro';
+import Flag from '../../components/Flag.astro';
+import OfficialSources from '../../components/OfficialSources.astro';
+import SectionHeading from '../../components/SectionHeading.astro';
+import { getCategoriesForCountry } from '../../data/categories';
+import { countries, type Country } from '../../data/countries';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getArticles } from '../../lib/articles';
+import { countryName } from '../../lib/format';
+import { breadcrumbSchema, type Crumb } from '../../lib/schema';
+
+export const getStaticPaths = (() =>
+  countries.map((country) => ({ params: { country: country.code }, props: { country } }))) satisfies GetStaticPaths;
+
+interface Props {
+  country: Country;
+}
+
+const { country } = Astro.props;
+const articles = (await getArticles()).filter((a) => a.data.country === country.code);
+const categories = getCategoriesForCountry(country.code);
+const countFor = (slug: string) => articles.filter((a) => a.data.category === slug).length;
+
+const crumbs: Crumb[] = [{ name: 'Home', href: '/' }, { name: country.name }];
+---
+
+<BaseLayout
+  title={`Insurance in ${countryName(country)}, explained`}
+  description={country.metaDescription}
+  country={country.code}
+  jsonLd={[breadcrumbSchema(crumbs, Astro.url.pathname)]}
+>
+  <div class="border-b border-border bg-bg-subtle">
+    <div class="container-page pt-2 pb-10 sm:pb-12">
+      <Breadcrumbs crumbs={crumbs} />
+      <div class="mt-4 max-w-3xl" data-pagefind-body data-pagefind-filter={`Country:${country.name}`}>
+        <div class="flex items-center gap-4">
+          <Flag country={country} width={56} class="rounded-[4px]" />
+          <h1 class="text-[2rem] leading-tight font-bold tracking-tight sm:text-[2.5rem]">
+            Insurance in {countryName(country)}
+          </h1>
+        </div>
+        <div class="mt-5 space-y-3 text-lg text-fg">
+          {country.intro.map((p) => <p>{p}</p>)}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section aria-labelledby="types-title" class="container-page pt-12">
+    <SectionHeading id="types-title" title="Types of insurance" />
+    <ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        categories.map((category) => (
+          <li>
+            <CategoryCard category={category} articleCount={countFor(category.slug)} />
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section aria-labelledby="latest-title" class="container-page pt-14">
+    <SectionHeading id="latest-title" title={`Latest articles for ${countryName(country)}`} />
+    {
+      articles.length > 0 ? (
+        <ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {articles.slice(0, 6).map((article) => (
+            <li>
+              <ArticleCard article={article} showContext />
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p class="card p-6 text-fg-muted">
+          Articles for {country.name} are being researched and checked against official sources, and
+          will appear here once published.
+        </p>
+      )
+    }
+  </section>
+
+  <div class="container-page pt-14">
+    <OfficialSources
+      title={`Official sources for ${countryName(country)}`}
+      links={country.officialSources}
+    />
+  </div>
+</BaseLayout>

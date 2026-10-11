@@ -1,0 +1,67 @@
+---
+import { corrections } from '../data/corrections';
+import { policyDates } from '../data/legal';
+import { site } from '../data/site';
+import ContentPage from '../layouts/ContentPage.astro';
+import { formatDate, isoDate } from '../lib/format';
+---
+
+<ContentPage
+  title="Corrections"
+  description="How to report an error on InsureFacts, what happens when you do, and our public log of corrections made to published articles."
+  lead="We aim to be accurate. If you spot a mistake, please tell us and we’ll fix it."
+  updated={policyDates.corrections}
+  ads={false}
+>
+  <h2>How to report an error</h2>
+  <p>
+    Email us at <a href={`mailto:${site.email}?subject=Correction`}>{site.email}</a> with “Correction”
+    in the subject line. To help us check it quickly, please include:
+  </p>
+  <ul>
+    <li>the address (URL) of the page;</li>
+    <li>what you believe is wrong or out of date;</li>
+    <li>if possible, a link to an official source that shows the correct information.</li>
+  </ul>
+  <p>
+    Please don’t send personal details, policy numbers or information about a claim. We can’t give
+    advice about individual situations.
+  </p>
+
+  <h2>What happens next</h2>
+  <ul>
+    <li>We check the report against official sources.</li>
+    <li>If the article is wrong, we correct it as soon as we can and update its “Last updated” date.</li>
+    <li>Significant corrections, meaning changes to a fact rather than to spelling or wording, are listed in the log below.</li>
+  </ul>
+
+  <h2>Corrections log</h2>
+  {
+    corrections.length === 0 ? (
+      <p>No corrections have been published yet.</p>
+    ) : (
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">Date</th>
+            <th scope="col">Article</th>
+            <th scope="col">What changed</th>
+          </tr>
+        </thead>
+        <tbody>
+          {corrections.map((c) => (
+            <tr>
+              <td>
+                <time datetime={isoDate(c.date)}>{formatDate(c.date, 'en-GB')}</time>
+              </td>
+              <td>
+                <a href={c.articleUrl}>{c.articleTitle}</a>
+              </td>
+              <td>{c.summary}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    )
+  }
+</ContentPage>

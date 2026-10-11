@@ -1,0 +1,34 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Search"
+  description="Search InsureFacts for factual guides to insurance in the US, UK, Canada and Australia."
+  noindex
+>
+  <div class="container-page pt-10">
+    <div class="mx-auto max-w-3xl">
+      <h1 class="text-[2rem] leading-tight font-bold tracking-tight sm:text-[2.5rem]">Search</h1>
+      <div class="mt-6">
+        <div id="search-page-ui" class="search-ui"></div>
+        <p data-search-status role="status" class="text-fg-muted" hidden></p>
+        <noscript>
+          <p class="text-fg-muted">
+            Search needs JavaScript. You can browse by country instead:{' '}
+            <a class="link" href="/us/">United States</a>, <a class="link" href="/uk/">United Kingdom</a>,{' '}
+            <a class="link" href="/ca/">Canada</a> or <a class="link" href="/au/">Australia</a>.
+          </p>
+        </noscript>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<script>
+  import { mountSearch } from '../scripts/search';
+
+  const container = document.getElementById('search-page-ui');
+  const query = new URLSearchParams(window.location.search).get('q')?.trim() ?? '';
+  if (container) mountSearch(container, { query, autofocus: !query });
+</script>

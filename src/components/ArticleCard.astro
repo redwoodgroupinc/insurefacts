@@ -1,0 +1,39 @@
+---
+import { getCategory } from '../data/categories';
+import { getCountry } from '../data/countries';
+import { articleUrl, type Article } from '../lib/articles';
+import { formatDate, isoDate } from '../lib/format';
+
+interface Props {
+  article: Article;
+  /** Show the country and category above the title (useful in mixed lists). */
+  showContext?: boolean;
+  headingLevel?: 2 | 3;
+}
+
+const { article, showContext = false, headingLevel = 3 } = Astro.props;
+const { title, description, updatedDate, country, category, draft } = article.data;
+const countryData = getCountry(country);
+const categoryData = getCategory(country, category);
+const Heading = `h${headingLevel}` as 'h2' | 'h3';
+---
+
+<article class="card card-link relative flex h-full flex-col p-5">
+  {
+    showContext && (
+      <p class="eyebrow mb-2">
+        {countryData.short} · {categoryData?.name}
+      </p>
+    )
+  }
+  <Heading class="text-lg font-semibold leading-snug">
+    <a href={articleUrl(article)} class="stretched-link hover:text-accent hover:underline underline-offset-4">
+      {title}
+    </a>
+  </Heading>
+  <p class="mt-2 flex-1 text-[0.9375rem] leading-relaxed text-fg-muted">{description}</p>
+  <p class="mt-4 text-sm text-fg-muted">
+    Last updated <time datetime={isoDate(updatedDate)}>{formatDate(updatedDate, countryData.lang)}</time>
+    {draft && <span class="ml-2 rounded bg-important-bg px-1.5 py-0.5 text-xs font-semibold text-important-fg">Draft</span>}
+  </p>
+</article>

@@ -1,0 +1,5 @@
+# Pagefind search index settings (used by `npm run build`).
+site: dist
+# Country pages use en-US, en-GB, en-CA and en-AU. Index them as one language so a
+# search from any page finds articles from every country.
+force_language: en

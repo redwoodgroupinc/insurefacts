@@ -1,0 +1,55 @@
+---
+import Flag from '../components/Flag.astro';
+import Icon from '../components/Icon.astro';
+import { countries } from '../data/countries';
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Page not found"
+  description="Sorry, we couldn't find that page on InsureFacts. Search the site or choose a country to browse our insurance guides."
+  noindex
+  ads={false}
+>
+  <div class="container-page py-14 sm:py-20">
+    <div class="mx-auto max-w-2xl text-center">
+      <p class="eyebrow">Error 404</p>
+      <h1 class="mt-2 text-[2rem] leading-tight font-bold tracking-tight sm:text-[2.5rem]">
+        We couldn’t find that page
+      </h1>
+      <p class="mt-4 text-lg text-fg-muted">
+        It may have moved, or the address may be mistyped. Try searching, or pick a country below.
+      </p>
+
+      <form action="/search/" method="get" role="search" class="mt-8 flex flex-col gap-2 sm:flex-row sm:gap-0">
+        <label for="notfound-search" class="visually-hidden">Search InsureFacts</label>
+        <input
+          id="notfound-search"
+          name="q"
+          type="search"
+          placeholder="Search InsureFacts"
+          class="h-12 w-full rounded-xl sm:w-auto sm:flex-1 border border-input-border bg-surface px-4 text-base text-fg placeholder:text-fg-muted sm:rounded-r-none"
+        />
+        <button type="submit" class="btn-primary h-12 rounded-xl sm:rounded-l-none">
+          <Icon name="search" size={18} /> Search
+        </button>
+      </form>
+
+      <ul class="mt-10 grid gap-3 text-left sm:grid-cols-2">
+        {
+          countries.map((c) => (
+            <li>
+              <a href={`/${c.code}/`} class="card card-link flex min-h-14 items-center gap-3 px-4 py-3 font-semibold text-heading hover:text-accent">
+                <Flag country={c} width={32} />
+                {c.name}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <p class="mt-8">
+        <a href="/" class="link inline-flex min-h-11 items-center font-semibold">Go to the homepage</a>
+      </p>
+    </div>
+  </div>
+</BaseLayout>
