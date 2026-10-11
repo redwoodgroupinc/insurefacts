@@ -1,0 +1,75 @@
+---
+import Icon from './Icon.astro';
+---
+
+<dialog
+  id="search-dialog"
+  aria-labelledby="search-dialog-title"
+  class="m-0 mx-auto mt-[4vh] max-h-[88vh] w-[calc(100%-2rem)] max-w-2xl overflow-y-auto rounded-xl border border-border bg-surface p-0 text-fg shadow-2xl backdrop:bg-black/50 sm:mt-[8vh]"
+  data-pagefind-ignore
+>
+  <div class="sticky top-0 z-10 flex items-center justify-between border-b border-border bg-surface px-4 py-2 sm:px-5">
+    <h2 id="search-dialog-title" class="text-lg font-semibold">Search InsureFacts</h2>
+    <button
+      type="button"
+      class="inline-flex min-h-11 min-w-11 items-center justify-center rounded-md text-fg-muted hover:bg-bg-subtle hover:text-heading"
+      data-search-close
+    >
+      <Icon name="close" size={22} />
+      <span class="visually-hidden">Close search</span>
+    </button>
+  </div>
+  <div class="px-4 pt-4 pb-6 sm:px-5">
+    <div id="search-dialog-ui" class="search-ui"></div>
+    <p data-search-status class="text-fg-muted" role="status" hidden></p>
+  </div>
+</dialog>
+
+<script>
+  import { mountSearch } from '../scripts/search';
+
+  const dialog = document.getElementById('search-dialog') as HTMLDialogElement | null;
+  const container = document.getElementById('search-dialog-ui');
+  let mounted = false;
+
+  async function openSearch() {
+    if (!dialog || !container) return;
+    if (!dialog.open) dialog.showModal();
+    if (!mounted) {
+      mounted = true;
+      await mountSearch(container);
+    } else {
+      container.querySelector<HTMLInputElement>('input')?.focus();
+    }
+  }
+
+  // Links to /search/ still work without JavaScript; with it, they open the dialog instead.
+  document.querySelectorAll<HTMLElement>('[data-search-open]').forEach((trigger) => {
+    trigger.addEventListener('click', (event) => {
+      if (typeof HTMLDialogElement !== 'function') return;
+      event.preventDefault();
+      openSearch();
+    });
+  });
+
+  dialog?.querySelector('[data-search-close]')?.addEventListener('click', () => dialog.close());
+
+  // Clicking the dimmed backdrop closes the dialog.
+  dialog?.addEventListener('click', (event) => {
+    if (event.target === dialog) dialog.close();
+  });
+
+  // "/" or Ctrl/Cmd+K opens search, unless the reader is typing somewhere.
+  document.addEventListener('keydown', (event) => {
+    const target = event.target as HTMLElement;
+    const typing =
+      target.isContentEditable || ['INPUT', 'TEXTAREA', 'SELECT'].includes(target.tagName);
+    const shortcut =
+      (event.key === '/' && !typing) ||
+      (event.key.toLowerCase() === 'k' && (event.metaKey || event.ctrlKey));
+    if (shortcut && dialog && !dialog.open && typeof HTMLDialogElement === 'function') {
+      event.preventDefault();
+      openSearch();
+    }
+  });
+</script>

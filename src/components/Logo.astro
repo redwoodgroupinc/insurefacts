@@ -1,0 +1,38 @@
+---
+interface Props {
+  /** "header" renders light text for the navy header; "default" for light backgrounds. */
+  variant?: 'header' | 'default';
+  class?: string;
+}
+
+const { variant = 'default', class: className = '' } = Astro.props;
+const insureClass = variant === 'header' ? 'text-header-fg' : 'text-heading';
+const factsClass = variant === 'header' ? 'text-header-accent' : 'text-accent';
+---
+
+<span class:list={['inline-flex items-center gap-2 font-bold tracking-tight', className]}>
+  <svg
+    width="30"
+    height="30"
+    viewBox="0 0 32 32"
+    aria-hidden="true"
+    focusable="false"
+    class="shrink-0"
+  >
+    <path
+      d="M16 2.5 27 6.6V15c0 7-4.6 12.4-11 14.5C9.6 27.4 5 22 5 15V6.6Z"
+      fill="#0f766e"
+      stroke="#5eead4"
+      stroke-width="1.2"></path>
+    <path
+      d="m10.6 16.1 3.7 3.7 7.2-7.6"
+      fill="none"
+      stroke="#ffffff"
+      stroke-width="3"
+      stroke-linecap="round"
+      stroke-linejoin="round"></path>
+  </svg>
+  <span class="text-[1.375rem] leading-none"
+    ><span class={insureClass}>Insure</span><span class={factsClass}>Facts</span></span
+  >
+</span>

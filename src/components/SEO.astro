@@ -1,0 +1,73 @@
+---
+import { site } from '../data/site';
+import type { JsonLd } from '../lib/schema';
+
+export interface SeoProps {
+  title: string;
+  description: string;
+  /** Adds " | InsureFacts" to the title (default true). */
+  appendSiteName?: boolean;
+  ogType?: 'website' | 'article';
+  ogLocale?: string;
+  noindex?: boolean;
+  jsonLd?: JsonLd[];
+  publishedTime?: Date;
+  modifiedTime?: Date;
+}
+
+const {
+  title,
+  description,
+  appendSiteName = true,
+  ogType = 'website',
+  ogLocale = 'en_US',
+  noindex = false,
+  jsonLd = [],
+  publishedTime,
+  modifiedTime,
+} = Astro.props as SeoProps;
+
+const fullTitle = appendSiteName ? `${title} | ${site.name}` : title;
+const canonical = new URL(Astro.url.pathname, site.url).href;
+const ogImage = new URL('/og-default.png', site.url).href;
+const robots = noindex ? 'noindex, follow' : 'index, follow, max-image-preview:large';
+
+// Escape "<" so content can never close the <script> element early.
+const serialize = (data: JsonLd) => JSON.stringify(data).replace(/</g, '\\u003c');
+---
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>{fullTitle}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+<meta name="robots" content={robots} />
+<meta name="color-scheme" content="light dark" />
+<meta name="theme-color" content="#0b1f44" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#070e1d" media="(prefers-color-scheme: dark)" />
+
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="icon" href="/favicon.ico" sizes="32x32" />
+<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+<link rel="manifest" href="/site.webmanifest" />
+<link rel="sitemap" type="application/xml" href="/sitemap-index.xml" />
+
+<meta property="og:type" content={ogType} />
+<meta property="og:site_name" content={site.name} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:locale" content={ogLocale} />
+<meta property="og:image" content={ogImage} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="InsureFacts: Insurance, explained with facts" />
+{publishedTime && <meta property="article:published_time" content={publishedTime.toISOString()} />}
+{modifiedTime && <meta property="article:modified_time" content={modifiedTime.toISOString()} />}
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImage} />
+
+{jsonLd.map((data) => <script type="application/ld+json" set:html={serialize(data)} />)}

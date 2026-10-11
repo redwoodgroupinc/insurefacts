@@ -1,0 +1,196 @@
+---
+import { countries, type CountryCode } from '../data/countries';
+import Flag from './Flag.astro';
+import Icon from './Icon.astro';
+import Logo from './Logo.astro';
+
+interface Props {
+  /** The country section the current page belongs to, if any. */
+  country?: CountryCode;
+}
+
+const { country } = Astro.props;
+const path = Astro.url.pathname;
+
+const currentFor = (code: CountryCode) =>
+  path === `/${code}/` ? 'page' : country === code ? 'true' : undefined;
+
+const menuLinks = [
+  { href: '/glossary/', label: 'Glossary' },
+  { href: '/about/', label: 'About' },
+  { href: '/editorial-policy/', label: 'Editorial policy' },
+  { href: '/contact/', label: 'Contact' },
+];
+
+const iconButton =
+  'inline-flex min-h-11 min-w-11 items-center justify-center gap-2 rounded-md px-2.5 text-header-muted hover:bg-header-hover hover:text-header-fg';
+---
+
+<header class="on-header bg-header text-header-fg" data-pagefind-ignore>
+  <div class="container-page flex h-16 items-center gap-1">
+    <a href="/" class="mr-auto flex min-h-11 items-center rounded-md">
+      <Logo variant="header" />
+      <span class="visually-hidden">: home</span>
+    </a>
+
+    <nav aria-label="Countries" class="hidden md:block">
+      <ul class="flex items-center gap-0.5">
+        {
+          countries.map((c) => (
+            <li>
+              <a
+                href={`/${c.code}/`}
+                aria-current={currentFor(c.code)}
+                class="flex min-h-11 items-center gap-2 rounded-md px-2.5 text-[0.9375rem] font-medium text-header-muted hover:bg-header-hover hover:text-header-fg [&[aria-current]]:bg-header-hover [&[aria-current]]:text-header-fg lg:px-3"
+              >
+                <Flag country={c} width={20} />
+                <span>{c.short}</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <div class="ml-1 flex items-center gap-0.5 md:ml-2 md:border-l md:border-white/15 md:pl-2">
+      <a href="/search/" class={iconButton} data-search-open aria-keyshortcuts="/">
+        <Icon name="search" size={20} />
+        <span class="sr-only lg:not-sr-only lg:text-[0.9375rem] lg:font-medium">Search</span>
+      </a>
+
+      <button type="button" class={iconButton} data-theme-toggle aria-pressed="false">
+        <Icon name="moon" size={20} class="dark:hidden" />
+        <Icon name="sun" size={20} class="hidden dark:block" />
+        <span class="visually-hidden">Dark mode</span>
+      </button>
+
+      <button
+        type="button"
+        class:list={[iconButton, 'md:hidden']}
+        data-menu-toggle
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+      >
+        <Icon name="menu" size={22} class="menu-icon-open" />
+        <Icon name="close" size={22} class="menu-icon-close hidden" />
+        <span class="visually-hidden">Menu</span>
+      </button>
+    </div>
+  </div>
+
+  <div id="mobile-menu" class="border-t border-white/10 md:hidden" hidden>
+    <nav aria-label="Main menu" class="container-page py-3">
+      <p class="eyebrow px-3 pt-1 pb-2 !text-header-muted">Choose a country</p>
+      <ul class="grid gap-1">
+        {
+          countries.map((c) => (
+            <li>
+              <a
+                href={`/${c.code}/`}
+                aria-current={currentFor(c.code)}
+                class="flex min-h-12 items-center gap-3 rounded-md px-3 text-base font-medium text-header-fg hover:bg-header-hover [&[aria-current]]:bg-header-hover"
+              >
+                <Flag country={c} width={24} />
+                {c.name}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <ul class="mt-3 grid grid-cols-2 gap-1 border-t border-white/10 pt-3">
+        {
+          menuLinks.map((link) => (
+            <li>
+              <a
+                href={link.href}
+                aria-current={path === link.href ? 'page' : undefined}
+                class="flex min-h-11 items-center rounded-md px-3 text-[0.9375rem] text-header-muted hover:bg-header-hover hover:text-header-fg"
+              >
+                {link.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<script>
+  // ── Theme toggle ──
+  // The initial theme is applied by the inline script in BaseLayout before first paint.
+  const root = document.documentElement;
+  const toggle = document.querySelector<HTMLButtonElement>('[data-theme-toggle]');
+  const systemDark = window.matchMedia('(prefers-color-scheme: dark)');
+
+  function storedTheme(): string | null {
+    try {
+      return localStorage.getItem('theme');
+    } catch {
+      return null;
+    }
+  }
+
+  function applyTheme(theme: 'light' | 'dark') {
+    root.dataset.theme = theme;
+    toggle?.setAttribute('aria-pressed', String(theme === 'dark'));
+  }
+
+  applyTheme(root.dataset.theme === 'dark' ? 'dark' : 'light');
+
+  toggle?.addEventListener('click', () => {
+    const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
+    applyTheme(next);
+    try {
+      localStorage.setItem('theme', next);
+    } catch {
+      // Storage can be unavailable (private mode, blocked cookies); the toggle still works for this page.
+    }
+  });
+
+  // Follow the system setting until the reader makes their own choice.
+  systemDark.addEventListener('change', (event) => {
+    const saved = storedTheme();
+    if (saved !== 'light' && saved !== 'dark') applyTheme(event.matches ? 'dark' : 'light');
+  });
+
+  // ── Mobile menu ──
+  const menuButton = document.querySelector<HTMLButtonElement>('[data-menu-toggle]');
+  const menu = document.getElementById('mobile-menu');
+
+  function setMenu(open: boolean, returnFocus = false) {
+    if (!menuButton || !menu) return;
+    menuButton.setAttribute('aria-expanded', String(open));
+    menu.hidden = !open;
+    menuButton.querySelector('.menu-icon-open')?.classList.toggle('hidden', open);
+    menuButton.querySelector('.menu-icon-close')?.classList.toggle('hidden', !open);
+    if (open) menu.querySelector<HTMLElement>('a')?.focus();
+    else if (returnFocus) menuButton.focus();
+  }
+
+  menuButton?.addEventListener('click', () => {
+    setMenu(menuButton.getAttribute('aria-expanded') !== 'true');
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && menuButton?.getAttribute('aria-expanded') === 'true') {
+      setMenu(false, true);
+    }
+  });
+
+  document.addEventListener('click', (event) => {
+    const target = event.target as Node;
+    if (
+      menuButton?.getAttribute('aria-expanded') === 'true' &&
+      !menu?.contains(target) &&
+      !menuButton.contains(target)
+    ) {
+      setMenu(false);
+    }
+  });
+
+  // Close the menu if the window grows to the desktop layout.
+  window.matchMedia('(min-width: 768px)').addEventListener('change', (event) => {
+    if (event.matches) setMenu(false);
+  });
+</script>

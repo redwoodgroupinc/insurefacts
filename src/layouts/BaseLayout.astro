@@ -1,0 +1,68 @@
+---
+import '@fontsource-variable/inter/wght.css';
+import interLatin from '@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url';
+import '../styles/global.css';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import SearchDialog from '../components/SearchDialog.astro';
+import SEO, { type SeoProps } from '../components/SEO.astro';
+import { getCountry, type CountryCode } from '../data/countries';
+import { ADSENSE_CLIENT } from '../lib/env';
+
+interface Props extends SeoProps {
+  /** Country section this page belongs to; sets the `lang` attribute and header state. */
+  country?: CountryCode;
+  /**
+   * Whether this page may load the AdSense script (default true). Legal pages and the 404 page
+   * pass false. Even when true, nothing loads unless PUBLIC_ADSENSE_CLIENT is set.
+   */
+  ads?: boolean;
+}
+
+const { country, ads = true, ...seo } = Astro.props;
+const countryData = country ? getCountry(country) : undefined;
+const lang = countryData?.lang ?? 'en';
+const ogLocale = seo.ogLocale ?? countryData?.ogLocale ?? 'en_US';
+const loadAds = ads && ADSENSE_CLIENT !== '';
+---
+
+<!doctype html>
+<html lang={lang} data-theme="light">
+  <head>
+    <SEO {...seo} ogLocale={ogLocale} />
+    <script is:inline>
+      // Apply the saved or system theme before the page paints, to avoid a flash.
+      (function () {
+        var theme;
+        try {
+          theme = localStorage.getItem('theme');
+        } catch (e) {}
+        if (theme !== 'light' && theme !== 'dark') {
+          theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+        document.documentElement.setAttribute('data-theme', theme);
+      })();
+    </script>
+    <link rel="preload" href={interLatin} as="font" type="font/woff2" crossorigin />
+    {
+      loadAds && (
+        <script
+          is:inline
+          async
+          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CLIENT}`}
+          crossorigin="anonymous"
+        />
+      )
+    }
+    <slot name="head" />
+  </head>
+  <body class="flex min-h-screen flex-col">
+    <a href="#main" class="skip-link">Skip to main content</a>
+    <Header country={country} />
+    <main id="main" tabindex="-1" class="flex-1 focus:outline-none">
+      <slot />
+    </main>
+    <Footer />
+    <SearchDialog />
+  </body>
+</html>
