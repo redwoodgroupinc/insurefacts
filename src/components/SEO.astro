@@ -27,7 +27,9 @@ const {
   modifiedTime,
 } = Astro.props as SeoProps;
 
-const fullTitle = appendSiteName ? `${title} | ${site.name}` : title;
+// Search results cut titles off at about 60 characters, so long titles drop the site name.
+const withSiteName = `${title} | ${site.name}`;
+const fullTitle = appendSiteName && withSiteName.length <= 65 ? withSiteName : title;
 const canonical = new URL(Astro.url.pathname, site.url).href;
 const ogImage = new URL('/og-default.png', site.url).href;
 const robots = noindex ? 'noindex, follow' : 'index, follow, max-image-preview:large';

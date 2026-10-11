@@ -35,6 +35,10 @@ const articles = (await getArticles()).filter(
 const siblings = getCategoriesForCountry(category.country).filter((c) => c.slug !== category.slug);
 
 const heading = `${category.name} in ${countryName(country)}`;
+// The <title> uses the short country name ("in the UK") to stay within search-result length.
+const shortCountry =
+  country.code === 'us' || country.code === 'uk' ? `the ${country.short}` : country.name;
+const pageTitle = `${category.name} in ${shortCountry}`;
 const crumbs: Crumb[] = [
   { name: 'Home', href: '/' },
   { name: country.name, href: `/${country.code}/` },
@@ -49,7 +53,7 @@ const metaDescription = (() => {
 ---
 
 <BaseLayout
-  title={heading}
+  title={pageTitle}
   description={metaDescription}
   country={country.code}
   jsonLd={[breadcrumbSchema(crumbs, Astro.url.pathname)]}

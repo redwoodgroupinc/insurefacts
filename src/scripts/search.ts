@@ -35,7 +35,7 @@ function loadAssets(): Promise<void> {
 /** Mounts the search UI into `container` once and returns the instance. */
 export async function mountSearch(
   container: HTMLElement,
-  options: { query?: string; autofocus?: boolean } = {},
+  options: { query?: string; autofocus?: boolean; labelledBy?: string } = {},
 ): Promise<PagefindUIInstance | undefined> {
   const status = container.parentElement?.querySelector<HTMLElement>('[data-search-status]');
   try {
@@ -61,6 +61,12 @@ export async function mountSearch(
       zero_results: 'No results for [SEARCH_TERM]. Try a broader word, such as “car” or “travel”.',
     },
   });
+  // Pagefind's input only has a title attribute; point it at the visible heading as its label.
+  if (options.labelledBy) {
+    container
+      .querySelector('input.pagefind-ui__search-input')
+      ?.setAttribute('aria-labelledby', options.labelledBy);
+  }
   if (options.query) instance.triggerSearch(options.query);
   return instance;
 }

@@ -9,8 +9,14 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 >
   <div class="container-page pt-10">
     <div class="mx-auto max-w-3xl">
-      <h1 class="text-[2rem] leading-tight font-bold tracking-tight sm:text-[2.5rem]">Search</h1>
-      <div class="mt-6">
+      <h1
+        id="search-title"
+        class="text-[2rem] leading-tight font-bold tracking-tight sm:text-[2.5rem]"
+      >
+        Search
+      </h1>
+      <!-- Reserve space so the footer does not jump when results load. -->
+      <div class="mt-6 min-h-screen">
         <div id="search-page-ui" class="search-ui"></div>
         <p data-search-status role="status" class="text-fg-muted" hidden></p>
         <noscript>
@@ -44,5 +50,5 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
   const container = document.getElementById('search-page-ui');
   const query = new URLSearchParams(window.location.search).get('q')?.trim() ?? '';
-  if (container) mountSearch(container, { query, autofocus: !query });
+  if (container) mountSearch(container, { query, autofocus: !query, labelledBy: 'search-title' });
 </script>

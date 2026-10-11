@@ -39,7 +39,7 @@ import Icon from './Icon.astro';
     if (!dialog.open) dialog.showModal();
     if (!mounted) {
       mounted = true;
-      await mountSearch(container);
+      await mountSearch(container, { labelledBy: 'search-dialog-title' });
     } else {
       container.querySelector<HTMLInputElement>('input')?.focus();
     }
